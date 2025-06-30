@@ -31,6 +31,12 @@ pub enum ErrorMessage {
     TokenNotProvided,
 }
 
+impl ToString for ErrorMessage {
+    fn to_string(&self) -> String {
+        self.to_str().to_owned()
+    }
+}
+
 impl ErrorMessage {
     fn to_str(&self) -> String {
         match self {
