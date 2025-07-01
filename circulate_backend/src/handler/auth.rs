@@ -35,7 +35,7 @@ pub async fn register(
 
     let result = app_state
         .db_client
-        .save_user(&body.name, &body.email, &hash_password)
+        .save_user(&body.username, &body.email, &hash_password)
         .await;
 
     match result {
@@ -104,6 +104,15 @@ pub async fn login(
         });
 
         let mut headers = HeaderMap::new();
-        headers.append(header::SET_COOKIE, cookie.to_string().parse(), unwrap());
+        headers.append(header::SET_COOKIE, cookie.to_string().parse().unwrap());
+
+        let mut response = response.into_response();
+        response.headers_mut().extend(headers);
+
+        Ok(response)
+    } else {
+        Err(HttpError::bad_request(
+            ErrorMessage::InvalidCredentials.to_string(),
+        ))
     }
 }
