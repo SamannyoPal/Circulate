@@ -25,6 +25,12 @@ use crate::{
     AppState,
 };
 
+pub fn file_handle() -> Router {
+    Router::new()
+        .route("/upload", post(upload_file))
+        .route("/retrive", post(retrive_file))
+}
+
 pub async fn upload_file(
     Extension(app_state): Extension<Arc<AppState>>,
     Extension(user): Extension<JWTAuthMiddleware>,
@@ -76,7 +82,7 @@ pub async fn upload_file(
 
     let public_key_str = match &recipient_user.public_key {
         Some(key) => key,
-        None => return (HttpError::bad_request("Recipient has no public key")),
+        None => return Err(HttpError::bad_request("Recipient has no public key")),
     };
 
     let public_key_bytes = STANDARD
@@ -86,7 +92,8 @@ pub async fn upload_file(
     let public_key =
         String::from_utf8(public_key_bytes).map_err(|e| HttpError::server_error(e.to_string()))?;
 
-    //let public_key_pem
+    let public_key_pem = RsaPublicKey::from_pkcs1_pem(&public_key)
+        .map_err(|e| HttpError::server_error(e.to_string()))?;
 
     let (encrypted_aes_key, encrypted_data, iv) = encrypt_file(file_data, &public_key_pem).await?;
 
@@ -168,7 +175,7 @@ pub async fn retrive_file(
         .db_client
         .get_file(file_id.clone())
         .await
-        .map_err(|e| HttpError::server_error(e.to_string()));
+        .map_err(|e| HttpError::server_error(e.to_string()))?;
 
     let file_data = file_result.ok_or_else(|| {
         HttpError::bad_request("The requested file does not exist or has expired.".to_string())
@@ -181,7 +188,7 @@ pub async fn retrive_file(
         fs::read_to_string(&path).map_err(|e| HttpError::server_error(e.to_string()))?;
 
     let private_key_pem = RsaPrivateKey::from_pkcs1_pem(&private_key)
-        .map_err(HttpError::server_error(e.to_string()))?;
+        .map_err(|e| HttpError::server_error(e.to_string()))?;
 
     let decrypted_file = decrypt_file(
         file_data.encrypted_aes_key,
