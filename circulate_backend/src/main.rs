@@ -5,6 +5,7 @@ mod error;
 mod handler;
 mod middleware;
 mod models;
+mod router;
 mod utils;
 
 use axum::{
@@ -23,6 +24,8 @@ use std::sync::Arc;
 use tokio_cron_scheduler::{Job, JobScheduler};
 use tower_http::cors::CorsLayer;
 use tracing_subscriber::filter::LevelFilter;
+
+use crate::router::create_router;
 
 #[derive(Clone, Debug)]
 pub struct AppState {
@@ -89,8 +92,7 @@ async fn main() {
         scheduler.start().await.unwrap();
     });
 
-    //let app = create_router(Arc::new(app_state.clone())).layer(cors.clone());
-    let app = Router::new().layer(cors.clone());
+    let app = create_router(Arc::new(app_state.clone())).layer(cors.clone());
 
     println!(
         "{}",
