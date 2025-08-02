@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
