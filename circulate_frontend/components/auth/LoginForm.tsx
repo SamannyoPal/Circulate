@@ -1,6 +1,6 @@
 "use client"
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { AuthCard } from "./AuthCard";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 
 export const LoginForm = () => {
     const [isPending, startTransition] = useTransition();
+    //const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -79,7 +80,7 @@ export const LoginForm = () => {
                                             placeholder="********"
                                             type="password"
                                             disabled={isPending}
-                            
+                                            
                                         />
                                     </FormControl>
                                     <FormMessage />
