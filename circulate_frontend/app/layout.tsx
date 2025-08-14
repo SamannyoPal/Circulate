@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
@@ -29,8 +29,8 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <SessionProvider session={session}>
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Toaster/>
             {children}
@@ -38,5 +38,16 @@ export default async function RootLayout({
         </body>
       </html>
     </SessionProvider>
+
+    // <html lang="en">
+    //   <body
+    //     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    //   >
+    //     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              
+    //          {children}
+    //        </ThemeProvider>
+    //   </body>
+    // </html>
   );
 }

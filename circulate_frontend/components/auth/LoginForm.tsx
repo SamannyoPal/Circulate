@@ -10,11 +10,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { LoginApi } from "@/action/authHandler";
+// import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 
 
 export const LoginForm = () => {
-    const [isPanding, startTransition] = useTransition();
+    const [isPending, startTransition] = useTransition();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -59,7 +60,7 @@ export const LoginForm = () => {
                                             {...field}
                                             placeholder="john.doe@example.com"
                                             type="email"
-                                            disabled={isPanding}
+                                            disabled={isPending}
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -77,7 +78,7 @@ export const LoginForm = () => {
                                             {...field}
                                             placeholder="********"
                                             type="password"
-                                            disabled={isPanding}
+                                            disabled={isPending}
                             
                                         />
                                     </FormControl>
@@ -86,8 +87,8 @@ export const LoginForm = () => {
                             )}
                         />
                     </div>
-                    <Button type="submit" isLoading={isPanding} className="w-full">
-                        Login
+                    <Button type="submit" className="w-full" disabled={isPending}>
+                        {isPending ? "Logging in..." : "Login"}
                     </Button>
                 </form>
             </Form>

@@ -21,7 +21,7 @@ export const AuthCard = ({
     className
 }: AuthCardProps) => {
     return (
-        <Card >
+        <Card className={cn("w-[400px] shadow-md",  className)}>
         <CardHeader>
             <div className="w-full flex flex-col gap-y-4 items-center justify-center">
                 <h1 className="text-3xl font-semibold">🔐Circulate</h1>

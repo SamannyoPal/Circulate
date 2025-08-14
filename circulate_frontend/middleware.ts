@@ -23,16 +23,11 @@ export default auth((req) => {
         }
         return NextResponse.next();
     }
-
-    if (!isLoggedIn) {
-        return Response.redirect(
-            new URL('/login',nextUrl)
-        );
-    }
-
+    
     return NextResponse.next();
 });
 
 export const config = {
-    matchers: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+    matchers: ["/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+,"/((?!.+\\.[\\w]+$|_next).*)", "/(api|trpc)(.*)"],
 };

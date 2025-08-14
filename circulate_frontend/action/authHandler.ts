@@ -65,4 +65,3 @@ export async function RegisterApi({
 export async function Logout() {
     await signOut({ redirectTo: '/login' });
 }
-
