@@ -10,7 +10,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { LoginApi } from "@/action/authHandler";
-// import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 
 
@@ -59,7 +58,7 @@ export const LoginForm = () => {
                                     <FormControl>
                                         <Input 
                                             {...field}
-                                            placeholder="john.doe@example.com"
+                                            placeholder="abc.xyz@example.com"
                                             type="email"
                                             disabled={isPending}
                                         />
@@ -88,8 +87,8 @@ export const LoginForm = () => {
                             )}
                         />
                     </div>
-                    <Button type="submit" className="w-full" disabled={isPending}>
-                        {isPending ? "Logging in..." : "Login"}
+                    <Button type="submit" className="w-full" isLoading={isPending}>
+                        Login
                     </Button>
                 </form>
             </Form>
