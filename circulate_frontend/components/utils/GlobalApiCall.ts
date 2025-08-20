@@ -24,9 +24,9 @@ export const GlobalApiCall = async ({
             },
         });
 
-        if (response.status === 401) {
-            throw new RedirectError(302, "/logout", "session expired");
-        }
+        // if (response.status === 401) {
+        //     throw new RedirectError(302, "/logout", "session expired");
+        // }
 
         if(!response.ok) {
             const errorText = await response.text();

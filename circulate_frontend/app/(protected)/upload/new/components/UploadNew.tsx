@@ -4,27 +4,10 @@ import { search_email } from "@/action/fileHandler";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -102,7 +85,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
       }
     };
 
-    // Debounce API calls
+
     const delayDebounceFn = setTimeout(() => {
       if (recipient_email) {
         fetchEmailSuggestions(recipient_email);
@@ -242,7 +225,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
                         selected={field.value}
                         onSelect={field.onChange}
                         disabled={(date) => date < new Date()}
-                        autoFocus //initialFocus
+                        autoFocus
                       />
                     </PopoverContent>
                   </Popover>

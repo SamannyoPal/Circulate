@@ -12,11 +12,13 @@ const UploadPage = async ({
     const fileData = await send_file_list({
         page: Number(searchParams.page) || 1,
         limit: Number(searchParams.limit) || 10,
-    });
+    })?? { files: [], results: 0 };
+
+    console.log("FILE-DATA",fileData);
 
     return (
-        <div className="p=4">
-            <Upload data={fileData.files} total={fileData.results} />
+        <div className="p-4">
+            <Upload data={fileData?.files ?? []} total={fileData.results} />
         </div>
     );
 };

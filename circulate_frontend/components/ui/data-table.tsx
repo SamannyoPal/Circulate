@@ -23,7 +23,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  totalCount: number;  // Total count for pagination
+  totalCount: number; 
 }
 
 export function DataTable<TData, TValue>({
@@ -37,7 +37,7 @@ export function DataTable<TData, TValue>({
   
   const initialPage = Number(searchParams.get("page")) || 1;
   const [page, setPage] = useState(initialPage);
-  const limit = 10; // Adjust based on your needs
+  const limit = 10;
 
   const table = useReactTable({
     data,

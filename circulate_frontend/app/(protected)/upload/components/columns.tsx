@@ -15,14 +15,20 @@ export const UploadColumns: ColumnDef<UploadColumnType>[] = [
         accessorKey: "file_id",
         header: "ID",
     },
+
+
     {
         accessorKey: "file_name",
         header: "File Name",
     },
+
+
     {
         accessorKey: "recipient_email",
         header: "Recipient Email",
     },
+
+
     {
         accessorKey: "expiration_date",
         header: "Expiration Date",
@@ -36,6 +42,8 @@ export const UploadColumns: ColumnDef<UploadColumnType>[] = [
             });
         },
     },
+    
+
     {
         accessorKey: "created_at",
         header: "Created At",
