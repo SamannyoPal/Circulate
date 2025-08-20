@@ -18,7 +18,7 @@ const UploadPage = async ({
 
     return (
         <div className="p-4">
-            <Upload data={fileData?.files ?? []} total={fileData.results} />
+            <Upload data={fileData?.files ?? []} total={fileData?.results ?? 0} />
         </div>
     );
 };
