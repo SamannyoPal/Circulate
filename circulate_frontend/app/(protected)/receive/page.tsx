@@ -14,7 +14,7 @@ const ReceivePage = async ({
     const session = await auth();
     return (
         <div className="p-4">
-            <Receive data={fileData?.files ?? []} total={fileData?.results} token={session?.user.accessToken || null}/>
+            <Receive data={fileData?.files ?? []} total={fileData?.results ?? 0} token={session?.user.accessToken || null}/>
         </div>
     )
 }
