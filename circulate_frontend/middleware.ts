@@ -9,9 +9,23 @@ export default auth((req) => {
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
+    //Hard coding this because i am dumb. Please forgive.
+    
     if(nextUrl.pathname === '/'){
-        return Response.redirect(new URL('/login',nextUrl))
+        if(!isLoggedIn){
+            return NextResponse.redirect(new URL('/login',nextUrl));
+        }
+        return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
+    if(nextUrl.pathname === '/upload' || nextUrl.pathname === '/upload/new' || nextUrl.pathname === '/receive' || nextUrl.pathname === '/profile'){
+        if(!isLoggedIn){
+            return NextResponse.redirect(new URL('/login',nextUrl));
+        }
+    }
+    
+
+    //I am very very sorry.
+    
 
     if (isApiAuthRoute){
         return NextResponse.next();
@@ -19,10 +33,11 @@ export default auth((req) => {
 
     if(isAuthRoute) {
         if(isLoggedIn) {
-            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
         }
         return NextResponse.next();
     }
+
     
     return NextResponse.next();
 });

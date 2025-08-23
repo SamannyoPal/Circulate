@@ -48,7 +48,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
     { email: string }[]
   >([]);
   const [isFetchingEmails, setIsFetchingEmails] = useState(false);
-  const [isPanding, setIsPanding] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const router = useRouter();
 
   const tomorrowDate = () => {
@@ -103,7 +103,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
   };
 
   const onSubmit = async (values: z.infer<typeof emailFormSchema>) => {
-    setIsPanding(true);
+    setIsPending(true);
         const formData = new FormData();
 
         formData.append('recipient_email', values.recipient_email);
@@ -128,7 +128,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
       }else{
         toast.error(result.message)
       }
-    setIsPanding(false);
+    setIsPending(false);
   }
 
   return (
@@ -151,7 +151,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
                         onValueChange={(value) => {
                             field.onChange(value);
                         }}
-                        disabled={isPanding}
+                        disabled={isPending}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Type or select recipient's email" />
@@ -187,7 +187,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} disabled={isPanding}/>
+                    <Input {...field} placeholder= "********" type="password" disabled={isPending}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -208,7 +208,7 @@ export const UploadNew = ({ token }: { token: string | null }) => {
                             "pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
-                          disabled={isPanding}
+                          disabled={isPending}
                         >
                           {field.value ? (
                             format(field.value, "PPP")
@@ -243,14 +243,14 @@ export const UploadNew = ({ token }: { token: string | null }) => {
                       type="file"
                       accept=".jpg,.jpeg,.png,.pdf"
                       onChange={handleFileUplaod}
-                      disabled={!isFormFilled || isPanding}
+                      disabled={!isFormFilled || isPending}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" isLoading={isPanding}>
+            <Button type="submit" className="w-full" isLoading={isPending}>
               Upload File
             </Button>
           </form>

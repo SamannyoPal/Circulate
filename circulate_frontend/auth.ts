@@ -20,14 +20,14 @@ export const {
                 password: { label: 'password', type: 'password' },
             },
             async authorize(credentials) {
-                const res = await fetch(`${process.env.API_BASR_URL}/auth/login`,{
+                const res = await fetch(`${process.env.API_BASE_URL}/auth/login`,{
                     method: 'post',
                     headers: {
                         "content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         email: credentials?.email,
-                        passowrd: credentials?.password,
+                        password: credentials?.password,
                     })
                 });
 

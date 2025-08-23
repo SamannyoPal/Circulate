@@ -26,7 +26,7 @@ export async function LoginApi({
                 case "CredentialsSignin":
                     return {error: "Invalid email or password!"};
                 default:
-                    return {error: "Something went wrong!"};
+                    return {error: "Something went wrongggggggggggggg!"};
             }
         }
 
@@ -36,12 +36,12 @@ export async function LoginApi({
 
 
 export async function RegisterApi({
-    name,
+    username,
     email,
     password,
     passwordConfirm,
 }: {
-    name: string;
+    username: string;
     email: string;
     password: string;
     passwordConfirm: string;
@@ -51,7 +51,7 @@ export async function RegisterApi({
             url: `${API_BASE_URL}/auth/register`,
             options: {
                 method: "post",
-                body: JSON.stringify({ name, email, password, passwordConfirm }),
+                body: JSON.stringify({ username, email, password, passwordConfirm }),
                 cache: 'no-store'
             },
         });
